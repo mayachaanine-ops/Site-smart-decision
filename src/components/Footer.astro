@@ -1,0 +1,33 @@
+---
+import { ui, company, type Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = ui[lang].footer;
+---
+<footer class="text-white bg-navy">
+  <div class="mx-auto max-w-6xl px-5 py-14 grid md:grid-cols-4 gap-10">
+    <div>
+      <p class="display font-extrabold text-[17px] mb-3">{company.name}</p>
+      <p class="text-[13px] leading-relaxed text-white/65">{t.tagline}</p>
+    </div>
+    <div>
+      <p class="font-semibold text-[14px] mb-3">{t.services}</p>
+      <ul class="space-y-2 text-[13px] text-white/65">{t.serviceList.map((s) => <li>{s}</li>)}</ul>
+    </div>
+    <div>
+      <p class="font-semibold text-[14px] mb-3">{t.company}</p>
+      <ul class="space-y-2 text-[13px] text-white/65">{t.companyList.map((s) => <li>{s}</li>)}</ul>
+    </div>
+    <div>
+      <p class="font-semibold text-[14px] mb-3">{t.follow}</p>
+      <div class="flex gap-2">
+        {['in', 'f', '◎', '✕'].map((s) => <span class="w-9 h-9 grid place-items-center rounded-lg bg-white/10 text-[13px]">{s}</span>)}
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="mx-auto max-w-6xl px-5 py-5 flex flex-wrap gap-3 justify-between text-[12px] text-white/55">
+      <span>© 2026 {company.name}. {t.rights}</span>
+      <span class="flex gap-5">{t.legal.map((l) => <a href="#">{l}</a>)}</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* ========================================================================
+   LES COULEURS ET POLICES DE SMART DECISION
+   Change une valeur ici et elle change partout sur le site.
+   ======================================================================== */
+@theme {
+  --color-navy: #123A6E;
+  --color-navy-deep: #0C2647;
+  --color-navy-soft: #EAF0F9;
+  --color-crimson: #DC1E45;
+  --color-crimson-deep: #A81433;
+  --color-crimson-soft: #FDECEF;
+  --color-ink: #1F2937;
+  --color-muted: #64748B;
+  --color-page: #F6F8FC;
+  --color-line: #E2E8F0;
+
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-crimson);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Animations : barres du panneau d'accueil + apparition au défilement */
+.bar-fill { width: 0; transition: width 1.4s cubic-bezier(.2,.8,.2,1); }
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.pillar-list { max-height: 0; overflow: hidden; transition: max-height .45s ease; }
+.pillar-list.open { max-height: 340px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bar-fill, .reveal { transition: none; opacity: 1; transform: none; }
+}

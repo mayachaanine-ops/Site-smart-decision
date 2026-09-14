@@ -1,0 +1,70 @@
+---
+import '../styles/global.css';
+import { ui, company, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = ui[lang];
+const url = new URL(Astro.url.pathname, Astro.site ?? company.domain).href;
+
+// Données structurées : aide Google à comprendre QUI tu es
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: company.name,
+  description: t.meta.description,
+  url: company.domain,
+  email: company.email,
+  telephone: company.phone,
+  address: { '@type': 'PostalAddress', addressLocality: 'Paris', addressCountry: 'FR' },
+  areaServed: 'FR'
+};
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- ===== SEO : les balises que Google lit en premier ===== -->
+  <title>{t.meta.title}</title>
+  <meta name="description" content={t.meta.description} />
+  <link rel="canonical" href={url} />
+
+  <!-- Dit à Google qu'il existe une version française ET une version anglaise -->
+  <link rel="alternate" hreflang="fr" href={`${company.domain}/fr/`} />
+  <link rel="alternate" hreflang="en" href={`${company.domain}/en/`} />
+  <link rel="alternate" hreflang="x-default" href={`${company.domain}/fr/`} />
+
+  <!-- Aperçu quand le lien est partagé sur LinkedIn, WhatsApp, etc. -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={t.meta.title} />
+  <meta property="og:description" content={t.meta.description} />
+  <meta property="og:url" content={url} />
+  <meta property="og:locale" content={lang === 'fr' ? 'fr_FR' : 'en_US'} />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <slot />
+
+  <script is:inline>
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.bar-fill').forEach((b) => {
+        setTimeout(() => (b.style.width = b.dataset.w), 250);
+      });
+    });
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => e.isIntersecting && e.target.classList.add('in')),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+    window.togglePillar = (id) => document.getElementById(id).classList.toggle('open');
+  </script>
+</body>
+</html>

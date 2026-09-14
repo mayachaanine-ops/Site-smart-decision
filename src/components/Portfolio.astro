@@ -1,0 +1,36 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = ui[lang].portfolio;
+const covers = [
+  'linear-gradient(135deg,#A855F7,#DC1E45)',
+  'linear-gradient(135deg,#1B4B8F,#4F46E5)',
+  'linear-gradient(135deg,#DC1E45,#A81433)'
+];
+---
+<section id="portfolio" class="bg-white">
+  <div class="mx-auto max-w-6xl px-5 py-20 reveal">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block bg-navy-soft text-navy text-[12px] font-semibold px-3.5 py-1.5 rounded-full">{t.badge}</span>
+      <h2 class="mt-5 text-[34px] lg:text-[42px] font-extrabold text-navy">{t.title}</h2>
+      <p class="mt-3 text-[15px] text-muted">{t.subtitle}</p>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-3 gap-6">
+      {t.items.map((p, i) => (
+        <article class="bg-white border border-line rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition">
+          <div class="h-40 relative" style={`background:${covers[i]}`}>
+            <span class="absolute top-3 right-3 bg-white/90 text-[11px] font-semibold text-navy px-2.5 py-1 rounded-full">{p.tag}</span>
+          </div>
+          <div class="p-5">
+            <h3 class="text-[16px] font-bold text-navy mb-2">{p.name}</h3>
+            <p class="text-[13px] leading-relaxed text-muted mb-4">{p.text}</p>
+            <div class="flex flex-wrap gap-1.5">
+              {p.tech.map((x) => <span class="text-[11px] bg-navy-soft text-navy px-2 py-1 rounded">{x}</span>)}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

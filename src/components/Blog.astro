@@ -1,0 +1,37 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = ui[lang].blog;
+const covers = ['linear-gradient(135deg,#059669,#047857)', 'linear-gradient(135deg,#DC2626,#B91C1C)'];
+const edge = ['border-navy', 'border-crimson'];
+---
+<section id="blog" class="bg-page">
+  <div class="mx-auto max-w-6xl px-5 py-20 reveal">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block bg-white border border-line text-navy text-[12px] font-semibold px-3.5 py-1.5 rounded-full">{t.badge}</span>
+      <h2 class="mt-5 text-[34px] lg:text-[42px] font-extrabold text-navy">{t.title}</h2>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-2 gap-6">
+      {t.items.map((a, i) => (
+        <article class={`bg-white rounded-2xl overflow-hidden shadow-sm border-b-[3px] ${edge[i]}`}>
+          <div class="h-36" style={`background:${covers[i]}`}>
+            <span class="inline-block m-3 bg-white/90 text-[11px] font-semibold text-navy px-2.5 py-1 rounded-full">{a.tag}</span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-[17px] font-bold text-navy mb-2">{a.title}</h3>
+            <p class="text-[13px] leading-relaxed text-muted mb-4">{a.text}</p>
+            <div class="flex items-center justify-between text-[12px] text-muted pt-4 border-t border-line">
+              <span>{a.author} · {a.date}</span>
+              <a href="#" class="text-crimson font-semibold">{t.read} →</a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <div class="text-center mt-10">
+      <a href="#" class="inline-block bg-navy hover:bg-navy-deep text-white font-semibold text-[14px] px-7 py-3 rounded-lg transition">{t.all}</a>
+    </div>
+  </div>
+</section>

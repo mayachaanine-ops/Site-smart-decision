@@ -1,0 +1,36 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = ui[lang].about;
+const iconBg = ['bg-navy', 'bg-crimson', 'bg-[#4F8CE8]', 'bg-[#8B5CF6]'];
+---
+<section id="apropos" class="bg-white">
+  <div class="mx-auto max-w-6xl px-5 py-20 grid lg:grid-cols-2 gap-14 items-center reveal">
+    <div>
+      <span class="inline-block bg-navy-soft text-navy text-[12px] font-semibold px-3.5 py-1.5 rounded-full">{t.badge}</span>
+      <h2 class="mt-5 text-[34px] lg:text-[40px] leading-[1.15] font-extrabold text-navy">{t.title1}<br />{t.title2}</h2>
+      <p class="mt-5 text-[15px] leading-[1.8] text-muted">{t.text}</p>
+
+      <div class="mt-6 grid sm:grid-cols-2 gap-4">
+        <div class="border-l-4 border-navy bg-navy-soft p-4">
+          <p class="display font-bold text-navy text-[15px] mb-1.5">{t.missionTitle}</p>
+          <p class="text-[13px] leading-relaxed text-muted">{t.missionText}</p>
+        </div>
+        <div class="border-l-4 border-crimson bg-crimson-soft p-4">
+          <p class="display font-bold text-crimson text-[15px] mb-1.5">{t.visionTitle}</p>
+          <p class="text-[13px] leading-relaxed text-muted">{t.visionText}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      {t.cards.map((c, i) => (
+        <div class="bg-white border border-line rounded-2xl p-6 shadow-sm">
+          <span class={`w-10 h-10 grid place-items-center rounded-lg text-white mb-4 ${iconBg[i]}`}>{c.icon}</span>
+          <p class="display text-[26px] font-extrabold text-navy">{c.n}</p>
+          <p class="text-[13px] text-muted">{c.l}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,76 @@
+---
+import { ui, type Lang } from '../i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = ui[lang].hero;
+const gradients = ['linear-gradient(90deg,#4F8CE8,#8B5CF6)', 'linear-gradient(90deg,#8B5CF6,#DC1E45)', 'linear-gradient(90deg,#DC1E45,#F97316)'];
+---
+<section class="bg-gradient-to-b from-navy-soft to-page">
+  <div class="mx-auto max-w-6xl px-5 py-16 lg:py-24 grid lg:grid-cols-2 gap-14 items-center">
+    <div>
+      <span class="inline-flex items-center gap-2 bg-white border border-line text-navy text-[12px] font-semibold px-3.5 py-1.5 rounded-full">
+        <span class="w-1.5 h-1.5 rounded-full bg-crimson"></span>{t.badge}
+      </span>
+
+      <h1 class="mt-6 text-[40px] lg:text-[54px] leading-[1.08] font-extrabold text-navy">
+        {t.title1}<br />{t.title2} <span class="text-crimson">{t.titleAccent}</span>
+      </h1>
+
+      <p class="mt-6 text-[16px] leading-[1.75] text-muted max-w-lg">{t.text}</p>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#contact" class="bg-navy hover:bg-navy-deep text-white font-semibold text-[15px] px-7 py-3.5 rounded-lg transition">{t.cta1} &nbsp;→</a>
+        <a href="#portfolio" class="bg-white border border-navy text-navy hover:bg-navy-soft font-semibold text-[15px] px-7 py-3.5 rounded-lg transition">{t.cta2}</a>
+      </div>
+
+      <dl class="mt-10 flex flex-wrap gap-x-10 gap-y-5">
+        {t.stats.map((s, i) => (
+          <div class={i > 0 ? 'border-l border-line pl-10' : ''}>
+            <dt class="display text-[30px] font-extrabold text-navy">{s.n}</dt>
+            <dd class="text-[13px] text-muted">{s.l}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+
+    <div class="rounded-2xl p-6 shadow-xl" style="background:linear-gradient(150deg,#1B4B8F 0%,#123A6E 55%,#0C2647 100%)">
+      <div class="grid grid-cols-3 gap-3 mb-5">
+        <div class="rounded-xl bg-white/10 border border-white/10 h-[74px]"></div>
+        <div class="rounded-xl bg-white/10 border border-white/10 h-[74px]"></div>
+        <div class="rounded-xl bg-white/10 border border-white/10 h-[74px]"></div>
+      </div>
+
+      <div class="rounded-xl bg-white/10 border border-white/10 p-4">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="w-9 h-9 rounded-lg bg-crimson grid place-items-center text-white text-[15px]">◈</span>
+          <div class="flex-1">
+            <p class="text-white text-[13px] font-semibold">{t.panel.title}</p>
+            <p class="text-white/55 text-[11px]">{t.panel.sub}</p>
+          </div>
+          <span class="text-[11px] text-emerald-300 font-semibold">● {t.panel.status}</span>
+        </div>
+
+        <div class="space-y-3">
+          {t.panel.bars.map((b, i) => (
+            <div>
+              <div class="flex justify-between text-[11px] text-white/70 mb-1.5"><span>{b.l}</span><span>{b.v}</span></div>
+              <div class="h-1.5 bg-white/15 rounded-full">
+                <div class="bar-fill h-full rounded-full" data-w={b.v} style={`background:${gradients[i]}`}></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 mt-4">
+        <div class="rounded-xl bg-white/10 border border-white/10 p-3.5">
+          <p class="text-white/60 text-[16px] mb-1">&lt;/&gt;</p>
+          <p class="text-white text-[12px] font-medium">{t.panel.tile1}</p>
+        </div>
+        <div class="rounded-xl bg-white/10 border border-white/10 p-3.5">
+          <p class="text-amber-300 text-[16px] mb-1">✦</p>
+          <p class="text-white text-[12px] font-medium">{t.panel.tile2}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
