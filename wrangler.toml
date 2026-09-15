@@ -1,4 +1,11 @@
-name = "smart-decision"
-compatibility_date = "2026-04-15"
-compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = "./dist"
+name = "site-smart-decision"
+main = "dist/_worker.js/index.js"
+compatibility_date = "2026-09-14"
+compatibility_flags = ["nodejs_compat", "global_fetch_strictly_public"]
+
+[assets]
+binding = "ASSETS"
+directory = "./dist"
+
+[observability]
+enabled = true
